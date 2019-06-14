@@ -1,0 +1,12 @@
+﻿  Application2D.cpp
+c:\users\alexm\desktop\programming\cellular automata template\trunk\project2d\application2d.cpp(17): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\alexm\desktop\programming\cellular automata template\trunk\project2d\application2d.cpp(21): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\alexm\desktop\programming\cellular automata template\trunk\project2d\application2d.cpp(40): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+  GridManager.cpp
+c:\users\alexm\desktop\programming\cellular automata template\trunk\project2d\gridmanager.cpp(106): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\alexm\desktop\programming\cellular automata template\trunk\project2d\gridmanager.cpp(107): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\alexm\desktop\programming\cellular automata template\trunk\project2d\gridmanager.cpp(115): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\alexm\desktop\programming\cellular automata template\trunk\project2d\gridmanager.cpp(116): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\alexm\desktop\programming\cellular automata template\trunk\project2d\gridmanager.cpp(239): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
+  Project2D.vcxproj -> C:\Users\alexm\Desktop\Programming\Cellular Automata Template\trunk\temp\Project2D\x64\Debug\Project2D.exe
