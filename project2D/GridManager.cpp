@@ -20,6 +20,7 @@ GridManager::GridManager(int cellAmount, float windowSizeX, float windowSizeY)
 
 	// Set Timer for each generation
 	_Timer = 0;
+	_NeighbourLit = false;
 
 	// Create Cells
 	_Cells = new Cell*[_CellTotal];
@@ -48,18 +49,18 @@ GridManager::GridManager(int cellAmount, float windowSizeX, float windowSizeY)
 				// Set Cells
 				if (testing < 10)
 				{
-					_Cells[x][y].SetSurvive(true);
-					_Cells[x][y].SetType(1);
+					_Cells[x][y].SetSurvive(false);
+					_Cells[x][y].SetChangeType(1);
 				}
 				else if (testing < 20)
 				{
 					_Cells[x][y].SetSurvive(false);
-					_Cells[x][y].SetType(2);
+					_Cells[x][y].SetChangeType(1);
 				}
 				else
 				{
-					_Cells[x][y].SetSurvive(true);
-					_Cells[x][y].SetType(3);
+					_Cells[x][y].SetSurvive(false);
+					_Cells[x][y].SetChangeType(1);
 				}
 			}
 		}
@@ -79,7 +80,7 @@ void GridManager::Update(aie::Input* input, float deltaTime, float windowWidth, 
 		Resize(windowWidth, windowHeight);
 
 	// Check all cells neighbours
-	if (input->isKeyDown(aie::INPUT_KEY_SPACE) && _Timer > 2)
+	if (input->isKeyDown(aie::INPUT_KEY_SPACE) && _Timer > 0.5)
 	{
 		CheckNeighbours();
 		_Timer = 0;	
@@ -131,6 +132,7 @@ void GridManager::CheckNeighbours()
 				_Type1Neighbours = 0;
 				_Type2Neighbours = 0;
 				_Type3Neighbours = 0;
+				_Type4Neighbours = 0;
 
 				// Reset neighbours
 				TR	= _Wall;
@@ -201,31 +203,41 @@ void GridManager::CheckNeighbours()
 
 void GridManager::NextGeneration(int x, int y)	// Rules Would be put in here
 {
+	// Type 1: Wire
+	// Type 2: Power
+	// Type 3: Trail
+	// Type 4: Light
+
 	//Set Cell Rules
-	if (_AliveNeighbours == 3 && !_Cells[x][y].GetAlive())
-		_Cells[x][y].SetSurvive(true);
-	else if (_AliveNeighbours <= 1 && _Cells[x][y].GetAlive())
-		_Cells[x][y].SetSurvive(false);
-	else if (_AliveNeighbours >= 4 && _Cells[x][y].GetAlive())
-		_Cells[x][y].SetSurvive(false);
-	else if (_AliveNeighbours == 2 && _Cells[x][y].GetAlive())
-		_Cells[x][y].SetSurvive(true);
-	else if (_AliveNeighbours == 3 && _Cells[x][y].GetAlive())
-		_Cells[x][y].SetSurvive(true);
+	if (_Cells[x][y].GetAlive() && _Cells[x][y].GetType() == 1 && (_Type2Neighbours == 1 || _Type2Neighbours == 2))
+		_Cells[x][y].SetChangeType(2);
+	else if (_Cells[x][y].GetAlive() && _Cells[x][y].GetType() == 2)
+		_Cells[x][y].SetChangeType(3);
+	else if (_Cells[x][y].GetAlive() && _Cells[x][y].GetType() == 3)
+		_Cells[x][y].SetChangeType(1);
+	else if ((_Cells[x][y].GetAlive() && _Cells[x][y].GetType() == 4 && _Type2Neighbours > 0 && _Type3Neighbours < 1))
+	{
+		if (_Cells[x][y].GetChangeLit())
+			_Cells[x][y].SetChangeLit(false);
+		else
+			_Cells[x][y].SetChangeLit(true);
+	}
 }
 
 void GridManager::GetCellType(Cell cell)
 {
-	_AliveNeighbours += 1;
+	_AliveNeighbours++;
 
 	// Get Neighbour types
 	_NeighbourType = cell.GetType();
 	if (_NeighbourType == 1)
-		_Type1Neighbours += 1;
+		_Type1Neighbours++;
 	else if (_NeighbourType == 2)
-		_Type2Neighbours += 1;
+		_Type2Neighbours++;
 	else if (_NeighbourType == 3)
-		_Type3Neighbours += 1;
+		_Type3Neighbours++;
+	else if (_NeighbourType == 4)
+		_Type3Neighbours++;
 }
 
 void GridManager::Draw(aie::Renderer2D* renderer)

@@ -16,6 +16,8 @@ Application2D::~Application2D() {
 bool Application2D::startup() {
 	srand(time(0));
 
+	_Font = new aie::Font("./font/consolas.ttf", 32);
+
 	_2dRenderer = new aie::Renderer2D();
 
 	_GridManager = new GridManager(25, getWindowWidth() ,getWindowHeight());
@@ -54,6 +56,12 @@ void Application2D::draw()
 	
 	// Draw GridManager
 	_GridManager->Draw(_2dRenderer);
+
+	//Draw FPS
+	char fps[32];
+	sprintf_s(fps, 32, "FPS: %i", getFPS());
+	_2dRenderer->setRenderColour(0.0f,1.0f,0.0f);
+	_2dRenderer->drawText(_Font, fps, getWindowWidth() * 0.005, getWindowHeight() * 0.95);
 
 	// done drawing sprites
 	_2dRenderer->end();

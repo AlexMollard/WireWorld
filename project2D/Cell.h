@@ -36,6 +36,14 @@ public:
 	int GetType()					{ return _Type; };
 	void SetType(char type)			{ _Type = type; };
 
+	// ChangeType Functions
+	int GetChangeType()				{ return _ChangeType; };
+	void SetChangeType(char type)	{ _ChangeType = type; };
+
+	// ChangeLit Functions
+	int GetChangeLit()				{ return _ChangeLit; };
+	void SetChangeLit(char status)	{ _ChangeLit = status; };
+
 	// SizeX Functions
 	float GetSizeX()						{ return _SizeX; };
 	float GetSizeY()						{ return _SizeY; };
@@ -52,6 +60,7 @@ private:
 	bool _DeathRow;
 	bool _Survive;
 	bool _Alive;
+	bool _ChangeLit;
 
 	// Position Variables
 	float _CellX;
@@ -65,7 +74,9 @@ private:
 	float _R;
 	float _G;
 	float _B;
-	int _Type;	
+	int _Type;
+	int _ChangeType;
+	bool _Lit;
 
 	// Wall Variable
 	bool _Wall;

@@ -19,4 +19,5 @@ protected:
 
 	aie::Renderer2D*	_2dRenderer;
 	GridManager*		_GridManager;
+	aie::Font*			_Font;
 };

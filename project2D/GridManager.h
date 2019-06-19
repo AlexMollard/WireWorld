@@ -38,6 +38,8 @@ private:
 	int _Type1Neighbours;
 	int _Type2Neighbours;
 	int _Type3Neighbours;
+	int _Type4Neighbours;
+	bool _NeighbourLit;
 
 	// Neighbour Cells
 	Cell TR, TM, TL;
